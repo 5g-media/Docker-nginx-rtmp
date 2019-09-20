@@ -30,7 +30,7 @@ http {
     keepalive_timeout   65;
 
     server {
-        listen          8080;
+        listen          8082;
         server_name     localhost;
 
         location /hls {
@@ -91,7 +91,7 @@ cat >>${NGINX_CONFIG_FILE} <<!EOF
         application ${STREAM_NAME} {
             live on;
             record off;
-            on_publish http://localhost:8080/on_publish;
+            on_publish http://localhost:8082/on_publish;
 !EOF
 if [ "${HLS}" = "true" ]; then
 cat >>${NGINX_CONFIG_FILE} <<!EOF

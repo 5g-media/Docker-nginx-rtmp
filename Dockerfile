@@ -1,4 +1,4 @@
-FROM alpine:latest as builder
+FROM openwhisk/dockerskeleton:nightly as builder
 MAINTAINER Jason Rivers <docker@jasonrivers.co.uk>
 
 ARG NGINX_VERSION=1.15.3
@@ -45,11 +45,12 @@ RUN	cd /tmp										&&	\
 	./configure										\
 		--prefix=/opt/nginx								\
 		--with-http_ssl_module								\
+                --with-cc-opt="-Wimplicit-fallthrough=0"					\
 		--add-module=../nginx-rtmp-module					&&	\
 	make										&&	\
 	make install
 
-FROM alpine:latest
+FROM openwhisk/dockerskeleton:nightly
 RUN apk update		&& \
 	apk add			   \
 		openssl		   \
@@ -63,7 +64,17 @@ RUN rm /opt/nginx/conf/nginx.conf
 ADD run.sh /
 
 EXPOSE 1935
-EXPOSE 8080
+
+# 8080 and 8081 is being ued by FaaS VIM.
+EXPOSE 8082
 
 CMD /run.sh
 
+###########  OpenWhisk Artifacts Begin
+
+ADD run.sh /action/exec
+RUN chmod +x /action/exec
+
+CMD ["/bin/bash", "-c", "cd actionProxy && python -u actionproxy.py"]
+
+###########  OpenWhisk Artifacts End
