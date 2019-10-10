@@ -33,6 +33,10 @@ http {
         listen          8080;
         server_name     localhost;
 
+        location ~ \.(flv) {
+            root /tmp;
+        }
+
         location /hls {
             types {
                 application/vnd.apple.mpegurl m3u8;
@@ -83,14 +87,18 @@ fi
 
 HLS="true"
 
-for STREAM_NAME in $(echo ${RTMP_STREAMS}) 
+for STREAM_NAME in $(echo ${RTMP_STREAMS})
 do
 
 echo Creating stream $STREAM_NAME
 cat >>${NGINX_CONFIG_FILE} <<!EOF
         application ${STREAM_NAME} {
             live on;
-            record off;
+            record all;
+            record_unique on;
+            record_path /tmp;
+            exec_options on;
+            exec_record_done sh -c "/exec_record_done.sh $path";
             on_publish http://localhost:8080/on_publish;
 !EOF
 if [ "${HLS}" = "true" ]; then

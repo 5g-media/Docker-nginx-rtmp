@@ -55,12 +55,16 @@ RUN apk update		&& \
 		openssl		   \
 		libstdc++	   \
 		ca-certificates	   \
-		pcre
+		pcre   \
+		curl
 
 COPY --from=0 /opt/nginx /opt/nginx
 COPY --from=0 /tmp/nginx-rtmp-module/stat.xsl /opt/nginx/conf/stat.xsl
 RUN rm /opt/nginx/conf/nginx.conf
 ADD run.sh /
+
+ADD exec_record_done.sh /
+RUN chmod +x /exec_record_done.sh
 
 EXPOSE 1935
 EXPOSE 8080
