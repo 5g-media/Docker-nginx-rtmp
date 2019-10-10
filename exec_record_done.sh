@@ -12,18 +12,20 @@
 # - OW_AUTH_BASE64 authentication token in 64base format
 #
 
-path=$1
+auth=$1
+ip=$2
+path=$3
 
 generate_post_data()
 {
   cat <<EOF
 {
-  "path": "$1",
+  "path": "$1"
 }
 EOF
 }
 
 curl --insecure -X POST \
   -H 'content-type: application/json' \
-  -H 'Authorization: Basic '"$OW_AUTH_BASE64"'' \
-  -d "$(generate_post_data $path)" https://$OPENWHISK_IP:443/api/v1/namespaces/guest/actions/mobile_journalist/record_done
+  -H 'Authorization: Basic '"$auth"'' \
+  -d "$(generate_post_data $path)" "https://$ip:443/api/v1/namespaces/guest/actions/mobile_journalist/record_done"

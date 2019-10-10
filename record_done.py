@@ -1,5 +1,3 @@
-import requests
-
 """
 Openwhisk helper action that get called whenever recording file is ready to be consumed
 

@@ -98,7 +98,7 @@ cat >>${NGINX_CONFIG_FILE} <<!EOF
             record_unique on;
             record_path /tmp;
             exec_options on;
-            exec_record_done sh -c "/exec_record_done.sh $path";
+            exec_record_done sh -c "/exec_record_done.sh ${OW_AUTH_BASE64} ${OPENWHISK_IP} fake_path";
             on_publish http://localhost:8080/on_publish;
 !EOF
 if [ "${HLS}" = "true" ]; then
