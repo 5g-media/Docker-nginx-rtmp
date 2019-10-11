@@ -5,7 +5,7 @@ NGINX Version 1.13.9
 nginx-rtmp-module Version 1.2.1
 
 ## Configurations
-This image exposes port 1935 for RTMP Steams and has 2 default channels open "live" and "testing".
+This image exposes port 1935 for RTMP streams and has 2 default channels open "live" and "testing".
 
 live (or your first stream name) is also accessable via HLS on port 8080
 
@@ -13,11 +13,11 @@ It also exposes 8080 so you can access http://<your server ip>:8080/stat to see 
 
 The configuration file is in /opt/nginx/conf/
 
-## Running
+## Running (using docker5gmedia/rtmp-sink)
 
 To run the container and bind the port 1935 to the host machine; run the following:
 ```
-docker run -p 1935:1935 -p 8080:8080 jasonrivers/nginx-rtmp
+docker run -p 1935:1935 -p 8080:8080 -e OPENWHISK_IP=<your openwhisk ipaddress> -e OW_AUTH_BASE64=<your openwhisk authentication token> -e RTMP_STREAM_NAMES=detection docker5gmedia/rtmp-sink
 ```
 
 ### Multiple Streams:
