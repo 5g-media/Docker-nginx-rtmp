@@ -27,8 +27,7 @@ generate_post_data()
 {
   cat <<EOF
 {
-  "ipaddress": "$1",
-  "filename": "$2"
+  "recording_url": "http://$1:8080/$2"
 }
 EOF
 }
