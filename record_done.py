@@ -1,12 +1,13 @@
 """
 Openwhisk helper action that get called whenever recording file is ready to be consumed
-
-:param path: Path of record file (e.g. tbd)
 """
 
 def main(args):
-    path = args.get('path')
-    if not path:
-        return {'error': 'Missing path'}
+    ipaddress = args.get('ipaddress')
+    if not ipaddress:
+        return {'error': 'Missing ipaddress'}
+    filename = args.get('filename')
+    if not filename:
+        return {'error': 'Missing filename'}
 
-    return {'path' : str(path)}
+    return {'filename' : str(filename), 'ipaddress': str(ipaddress)}
