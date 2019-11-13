@@ -95,7 +95,6 @@ cat >>${NGINX_CONFIG_FILE} <<!EOF
         application ${STREAM_NAME} {
             live on;
             record all;
-            record_unique on;
             record_path /tmp;
             exec_options on;
             exec_record_done sh -c "/exec_record_done.sh ${MYIP} ${OW_AUTH_BASE64} ${OW_URL} \$path";
