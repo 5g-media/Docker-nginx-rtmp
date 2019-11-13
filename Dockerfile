@@ -68,6 +68,10 @@ ADD run.sh /
 ADD exec_record_done.sh /
 RUN chmod +x /exec_record_done.sh
 
+RUN mkdir -p /data/sessions
+RUN chmod ugo+rwx /data
+RUN chmod ugo+rwx /data/sessions
+
 EXPOSE 1935
 EXPOSE 8080
 

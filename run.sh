@@ -34,7 +34,7 @@ http {
         server_name     localhost;
 
         location / {
-            root /data/www;
+            root /data/sessions;
             dav_methods PUT DELETE;
             create_full_put_path  on;
             dav_access group:rw  all:rw;
@@ -42,7 +42,7 @@ http {
         }
 
         location ~ \.(flv) {
-            root /tmp;
+            root /data/sessions;
         }
 
         location /hls {
@@ -103,7 +103,7 @@ cat >>${NGINX_CONFIG_FILE} <<!EOF
         application ${STREAM_NAME} {
             live on;
             record all;
-            record_path /tmp;
+            record_path /data/sessions;
             on_publish http://localhost:8080/on_publish;
 !EOF
 if [ "${HLS}" = "true" ]; then
