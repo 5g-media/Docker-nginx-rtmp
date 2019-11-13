@@ -46,7 +46,8 @@ RUN	cd /tmp										&&	\
 		--prefix=/opt/nginx								\
 		--with-http_ssl_module								\
 		--with-cc-opt="-Wimplicit-fallthrough=0"            \
-		--add-module=../nginx-rtmp-module					&&	\
+		--add-module=../nginx-rtmp-module						\
+		--with-http_dav_module							&&	\
 	make										&&	\
 	make install
 

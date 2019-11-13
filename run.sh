@@ -33,6 +33,14 @@ http {
         listen          8080;
         server_name     localhost;
 
+        location / {
+            root /data/www;
+            dav_methods PUT DELETE;
+            create_full_put_path  on;
+            dav_access group:rw  all:rw;
+
+        }
+
         location ~ \.(flv) {
             root /tmp;
         }
@@ -96,8 +104,6 @@ cat >>${NGINX_CONFIG_FILE} <<!EOF
             live on;
             record all;
             record_path /tmp;
-            exec_options on;
-            exec_record_done sh -c "/exec_record_done.sh ${MYIP} ${OW_AUTH_BASE64} ${OW_URL} \$path";
             on_publish http://localhost:8080/on_publish;
 !EOF
 if [ "${HLS}" = "true" ]; then
