@@ -30,8 +30,10 @@ http {
     keepalive_timeout   65;
 
     server {
-        listen          8080;
-        server_name     localhost;
+        listen              443 ssl;
+        server_name         localhost;
+        ssl_certificate     /opt/nginx/certs/nginx-selfsigned.crt;
+        ssl_certificate_key /opt/nginx/certs/nginx-selfsigned.key;
 
         location / {
             root /data/sessions;
